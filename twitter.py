@@ -1,4 +1,4 @@
-import tweepy, os, pickle
+import tweepy, os
 
 TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
 TWITTER_SECRET_KEY = os.environ.get('TWITTER_SECRET_KEY')
@@ -15,12 +15,15 @@ try:
 except tweepy.TweepError:
     print 'Error! Failed to get request token.'
 
-user = api.get_user('brandonfujii')
-timeline = api.user_timeline('brandonfujii')
+def fetch_data(user):
 
-tweets = []
-exclusions = ['RT', '@', 'https']
+    timeline = api.user_timeline(user)
 
-for tweet in timeline:
-    if not any(word in tweet.text for word in exclusions):
-        tweets.append(tweet.text)
+    tweets = []
+    exclusions = ['RT', '@', 'https']
+
+    for tweet in timeline:
+        if not any(word in tweet.text for word in exclusions):
+            tweets.append(tweet.text)
+
+    return tweets

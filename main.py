@@ -1,4 +1,5 @@
 from twitter import *
+import pickle
 
 text_file = open('tweets.txt', 'w')
-pickle.dump(tweets, text_file);
+pickle.dump(fetch_data('brandonfujii'), text_file);
