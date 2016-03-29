@@ -1,10 +1,10 @@
-import tweepy, os
+import tweepy, os, pickle
 
 TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
 TWITTER_SECRET_KEY = os.environ.get('TWITTER_SECRET_KEY')
 TWITTER_ACCESS_TOKEN = os.environ.get('TWITTER_ACCESS_TOKEN')
 TWITTER_TOKEN_SECRET = os.environ.get('TWITTER_TOKEN_SECRET')
-
+TWITTER_USERNAME = 'brandonfujii'
 
 auth = tweepy.OAuthHandler(TWITTER_CONSUMER_KEY, TWITTER_SECRET_KEY)
 auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_TOKEN_SECRET)
@@ -27,3 +27,8 @@ def fetch_data(user):
             tweets.append(tweet.text)
 
     return tweets
+
+
+text_file = open('tweets.txt', 'w')
+pickle.dump(fetch_data(TWITTER_USERNAME), text_file);
+text_file.close()
